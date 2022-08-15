@@ -20,7 +20,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<build.dir>src/main/build</build.dir>
 		<app.namespace>oneservice</app.namespace>
-		<!-- 对应产品版本号，可以不填写，标签不可以删除 -->
+		<!-- 对应产品版本号，可以不填写，但标签不可以删除 -->
 		<app.product.version>1.0.0</app.product.version>
 		
 		<!-- image tag 增加时间戳 -->
