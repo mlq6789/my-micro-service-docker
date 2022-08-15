@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>com.mlq</groupId>
+        <artifactId>micro-parent</artifactId>
+        <version>1.0.0</version>
+    </parent>
+    
+    <groupId>com.mlqcloud</groupId>
+	<artifactId>my-micro-service-docker</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+	
+	<properties>
+		<!-- 以下配置，不需要修改 -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<build.dir>src/main/build</build.dir>
+		<app.namespace>oneservice</app.namespace>
+		<!-- 对应产品版本号，可以不填写，会由CICD提测流程中页面所选择的版本号覆盖，但标签不可以删除 -->
+		<app.product.version>1.0.0</app.product.version>
+		
+		<!-- image tag 增加时间戳 -->
+		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+		<app.build.timestamp>${maven.build.timestamp}</app.build.timestamp>
+		
+		<!-- docker need -->
+		<app.assembly-descriptor.location>${build.dir}/assembly.xml</app.assembly-descriptor.location>
+		
+		<!-- harbor仓库的地址 -->
+		<k8s.harbor.url>harbor.sinoiov.com</k8s.harbor.url>
+		
+		<!-- 用于控制生成拿一个镜像 maven-compiler-plugin 内置属性，默认生成本工程镜像，如果需要生成 dep，请于 mvn 中直接指定。-Ddocker.filter=xxx
+         ex. "mvn" clean package docker:build -Ddocker.filter='${project.artifactId}'-dep  -f  "pom.xml"
+        -->
+		<docker.image.tag.suffix></docker.image.tag.suffix>
+		<docker.filter>${project.artifactId}</docker.filter>
+		
+		<!-- image上传至harbor仓库路径 -->
+		<!-- app程序包镜像 -->
+		<docker.app.image.name>${k8s.harbor.url}/${app.namespace}/dist/${project.artifactId}:${app.product.version}-${app.build.timestamp}${docker.image.tag.suffix}</docker.app.image.name>
+		<!-- 依赖镜像 -->
+		<docker.dep.image.version>1.0.0</docker.dep.image.version>
+		<docker.dep.image.name>${k8s.harbor.url}/${app.namespace}/dep/${project.artifactId}-dep:${docker.dep.image.version}${docker.image.tag.suffix}</docker.dep.image.name>
+		<docker.dep.image.workdir>/opt/web_app/deps/sprinboot_web/lib</docker.dep.image.workdir>
+	</properties>
+
+</project>
