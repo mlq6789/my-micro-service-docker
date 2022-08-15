@@ -31,7 +31,7 @@
 		<app.assembly-descriptor.location>${build.dir}/assembly.xml</app.assembly-descriptor.location>
 		
 		<!-- harbor仓库的地址 -->
-		<k8s.harbor.url>harbor.sinoiov.com</k8s.harbor.url>
+		<k8s.harbor.url>harbor.mlqcloud.com</k8s.harbor.url>
 		
 		<!-- 用于控制生成拿一个镜像 maven-compiler-plugin 内置属性，默认生成本工程镜像，如果需要生成 dep，请于 mvn 中直接指定。-Ddocker.filter=xxx
          ex. "mvn" clean package docker:build -Ddocker.filter='${project.artifactId}'-dep  -f  "pom.xml"
